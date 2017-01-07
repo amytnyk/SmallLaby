@@ -69,6 +69,31 @@ void DrawPanel(int gold, double speed)
   window.draw(text);
 }
 
+/*void DrawC(bool IsConected)
+{
+  RectangleShape rect;
+  rect.setPosition(0, 500);
+  rect.setFillColor(Color::Red);
+  rect.setSize(Vector2f(300.0f, 50.0f));
+  window.draw(rect);
+  rect.setPosition(500, 500);
+  rect.setFillColor(Color::Red);
+  window.draw(rect);
+  Font font;
+  font.loadFromFile("Raleway-Italic.ttf");
+  Text text;
+  text.setFont(font);
+  text.setString("Connect");
+  text.setCharacterSize(50);
+  text.setColor(Color::Yellow);
+  text.setPosition(0, 500);
+  window.draw(text);
+  text.setString("Disconnect");
+  text.setPosition(500, 500);
+  window.draw(text);
+}
+*/
+
 void DrawMap(
   const std::vector<std::vector<Terrain>> &map,
   const std::vector<Player> &players, 
@@ -149,10 +174,20 @@ void DrawMap(
   }
 }
 
+bool IsOnSquare(int x, int y, int s, int s2, int yourX, int yourY)
+{
+  if (yourY < y + s2 && yourY > y && yourX > x && yourX < x + s)
+    return true;
+  else
+    return false;
+}
+
 int main(array<System::String ^> ^args)
 {
+  bool connected = false;
   ClientModel client_model;
-  int player_id = client_model.AddPlayer("alex");
+  int player_id = 0;
+  //player_id = client_model.AddPlayer("alex");
   int w = client_model.GetWidth();
   int h = client_model.GetHeight();
   auto map = client_model.GetMap();
@@ -172,28 +207,60 @@ int main(array<System::String ^> ^args)
         window.close();
         continue;
       }
-      if (Keyboard::isKeyPressed(Keyboard::Down))
-        client_model.SetMoveStrategy(player_id, MoveStrategy::MoveDown);
-      if (Keyboard::isKeyPressed(Keyboard::Up))
-        client_model.SetMoveStrategy(player_id, MoveStrategy::MoveUp);
-      if (Keyboard::isKeyPressed(Keyboard::Left))
-        client_model.SetMoveStrategy(player_id, MoveStrategy::MoveLeft);
-      if (Keyboard::isKeyPressed(Keyboard::Right))
-        client_model.SetMoveStrategy(player_id, MoveStrategy::MoveRight);
+      Vector2i position = Mouse::getPosition();
+      if (Mouse::isButtonPressed(Mouse::Button::Left))
+      {
+        /*if (!connected && IsOnSquare(0, 500, 300, 50, position.x, position.y))
+        {//Connect
+          player_id = client_model.AddPlayer("alex");
+          connected = true;
+        }
+        if (connected && IsOnSquare(500, 500, 300, 50, position.x, position.y))
+        {//Disconnect
+          client_model.RemovePlayer(player_id);
+          connected = false;
+        }*/
+        if (!connected)
+        {//Connect
+          player_id = client_model.AddPlayer("alex");
+          connected = true;
+        }
+        else if (connected)
+        {//Disconnect
+          client_model.RemovePlayer(player_id);
+          connected = false;
+        }
+      }
+      if (connected)
+      {
+        if (Keyboard::isKeyPressed(Keyboard::Down))
+          client_model.SetMoveStrategy(player_id, MoveStrategy::MoveDown);
+        if (Keyboard::isKeyPressed(Keyboard::Up))
+          client_model.SetMoveStrategy(player_id, MoveStrategy::MoveUp);
+        if (Keyboard::isKeyPressed(Keyboard::Left))
+          client_model.SetMoveStrategy(player_id, MoveStrategy::MoveLeft);
+        if (Keyboard::isKeyPressed(Keyboard::Right))
+          client_model.SetMoveStrategy(player_id, MoveStrategy::MoveRight);
+      }
     }
     window.clear(Color(0, 200, 0, 200));
     auto players = client_model.GetPlayers();
     auto monsters = client_model.GetMonsters();
     auto items = client_model.GetItems();
-    int gold = client_model.Gold(player_id);
-    double speed = client_model.Speed(player_id);
     DrawMap(map, players, monsters, items, player_id);
-    DrawPanel(gold, speed);
+    //DrawC(connected);
+    if (connected)
+    {
+      int gold = client_model.Gold(player_id);
+      double speed = client_model.Speed(player_id);
+      DrawPanel(gold, speed);
+    }
     window.display();
   }
-  
-  client_model.RemovePlayer(player_id);
-  client_model.Close();
-
+  if (connected)
+  {
+    client_model.RemovePlayer(player_id);
+    client_model.Close();
+  }
   return 0;
 }
