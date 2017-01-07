@@ -3,12 +3,23 @@
 #include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include "ClientModel.h"
-
-using namespace System;
+#include "SmallLabySfml.h"
 
 using namespace sf;
 RenderWindow window(VideoMode(800, 700), "First sfml program!");
-using namespace SmallLabyUser::ServiceRefSmallLaby;
+
+bool IsPlayerOnField(int x, int y, const std::vector<Player> &players, int player_id, bool& is_me)
+{
+  for (size_t k = 0; k < players.size(); k++)
+  {
+    if (players[k].X == y && players[k].Y == x)
+    {
+      is_me = player_id == players[k].Id;
+      return true;
+    }
+  }
+  return false;
+}
 
 bool MonsterIsOnField(int x, int y, const std::vector<Monster> &monsters)
 {
@@ -22,50 +33,94 @@ bool MonsterIsOnField(int x, int y, const std::vector<Monster> &monsters)
   return false;
 }
 
+bool IsGoldOnField(int x, int y, const std::vector<Item> &items)
+{
+  for (const Item& item : items)
+  {
+    if (item.Type == ItemType::Gold && item.X == y && item.Y == x)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 void DrawMap(
   const std::vector<std::vector<Terrain>> &map,
   const std::vector<Player> &players, 
-  const std::vector<Monster> &monsters, int player_id)
+  const std::vector<Monster> &monsters,
+  const std::vector<Item> &items,
+  int player_id)
 {
-  bool b;
-  int size = 30;
-  RectangleShape rectangle;
-  rectangle.setSize(Vector2f(size, size));
-  for (size_t i = 0; i < map.size(); i++)
+  float s = 30.0f;
+  Texture player_texture;
+  player_texture.loadFromFile("Images/player.bmp");
+  Texture gold_texture;
+  gold_texture.loadFromFile("Images/gold1.png");
+  Texture enemy_texture;
+  enemy_texture.loadFromFile("Images/m1.bmp");
+  Texture my_texture;
+  my_texture.loadFromFile("Images/aze1.bmp");
+  Texture wall_texture;
+  wall_texture.loadFromFile("Images/mud.bmp");
+  Texture road_texture;
+  road_texture.loadFromFile("Images/road.bmp");
+  for (int i = 0; i < map.size(); i++)
   {
-    for (size_t j = 0; j < map[i].size(); j++)
+    for (int j = 0; j < map[i].size(); j++)
     {
-      for (size_t k = 0; k < players.size(); k++)
+      Sprite sprite;
+      Vector2u size;
+      bool is_me;
+      if (IsPlayerOnField(i, j, players, player_id, is_me))
       {
-        if (players[k].X == j && players[k].Y == i)
+        if (is_me)
         {
-          if (player_id == players[k].Id)
-            rectangle.setFillColor(Color::Magenta);
-          else
-            rectangle.setFillColor(Color::Blue);
-          b = true;
+          sprite.setTexture(my_texture);
+          size = my_texture.getSize();
+        }
+        else
+        {
+          sprite.setTexture(player_texture);
+          size = player_texture.getSize();
+        }
+      }
+      else if (MonsterIsOnField(i, j, monsters))
+      {
+        sprite.setTexture(enemy_texture);
+        size = enemy_texture.getSize();
+      }
+      else
+      {
+        switch (map[i][j])
+        {
+        case Terrain::Road:
+        {
+          sprite.setTexture(road_texture);
+          size = road_texture.getSize();
           break;
         }
-      }
-      if (MonsterIsOnField(i, j, monsters))
-      {
-        rectangle.setFillColor(Color::Yellow);
-        b = true;
-      }
-      if (!b)
-      {
-        if (map[i][j] == Terrain::Road)
+        case Terrain::Wall:
         {
-          rectangle.setFillColor(Color::Green);
+          sprite.setTexture(wall_texture);
+          size = wall_texture.getSize();
+          break;
         }
-        if (map[i][j] == Terrain::Wall)
-        {
-          rectangle.setFillColor(Color::Red);
         }
       }
-      rectangle.setPosition(j * size, i * size);
-      window.draw(rectangle);
-      b = false;
+      sprite.setScale(s / size.x, s / size.y);
+      sprite.setPosition(j * s, i * s);
+      window.draw(sprite);
+
+      if (IsGoldOnField(i, j, items))
+      {
+        Sprite sprite;
+        sprite.setTexture(gold_texture);
+        size = gold_texture.getSize();
+        sprite.setScale(s / size.x, s / size.y);
+        sprite.setPosition(j * s, i * s);
+        window.draw(sprite);
+      }
     }
   }
 }
@@ -78,8 +133,6 @@ int main(array<System::String ^> ^args)
   int h = client_model.GetHeight();
   auto map = client_model.GetMap();
   auto players = client_model.GetPlayers();
-  //Thread thread(&DrawMap(map, players, player_id));
-  //thread.launch();
   while (window.isOpen())
   {
     Event event;
@@ -104,14 +157,14 @@ int main(array<System::String ^> ^args)
       if (Keyboard::isKeyPressed(Keyboard::Right))
         client_model.SetMoveStrategy(player_id, MoveStrategy::MoveRight);
     }
-
-    window.clear();
+    window.clear(Color(0, 200, 0, 200));
     auto players = client_model.GetPlayers();
     auto monsters = client_model.GetMonsters();
-    DrawMap(map, players, monsters, player_id);
+    auto items = client_model.GetItems();
+    DrawMap(map, players, monsters, items, player_id);
     window.display();
   }
-
+  
   client_model.RemovePlayer(player_id);
   client_model.Close();
 

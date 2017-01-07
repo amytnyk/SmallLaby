@@ -14,7 +14,25 @@ enum class MoveStrategy
   MoveLeft,
   MoveRight,
   MoveUp,
-  MoveDown
+  MoveDown,
+  MoveRandom,
+  StandStill
+};
+
+enum class ItemType
+{
+  Gold,
+  Bonus,
+  Exit,
+  Unknown
+};
+
+struct Item
+{
+public:
+  int X;
+  int Y;
+  ItemType Type;
 };
 
 struct Player
@@ -54,5 +72,6 @@ public:
   void Close();
   std::vector<Player> GetPlayers();
   std::vector<Monster> GetMonsters();
+  std::vector<Item> GetItems();
 };
 

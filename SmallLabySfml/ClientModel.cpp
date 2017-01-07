@@ -5,7 +5,6 @@
 #include <string>
 using namespace System;
 using namespace SmallLabyUser;
-//using namespace SmallLabyUser::ServiceRefSmallLaby;
 
 struct ClientModel::PrivateModel
 {
@@ -132,4 +131,24 @@ std::vector<Monster> ClientModel::GetMonsters()
     monstersv.push_back(monster);
   }
   return monstersv;
+}
+
+std::vector<Item> ClientModel::GetItems()
+{
+  array<ServiceRefSmallLaby::ItemInfo>^ items = _model_impl->client->GetItems();
+  std::vector<Item> itemsv;
+  for (int i = 0; i < items->GetLength(0); i++)
+  {
+    Item item;
+    item.X = items[i].X;
+    item.Y = items[i].Y;
+    if (items[i].Item == ServiceRefSmallLaby::Item::Bonus)
+      item.Type = ItemType::Bonus;
+    if (items[i].Item == ServiceRefSmallLaby::Item::Gold)
+      item.Type = ItemType::Gold;
+    if (items[i].Item == ServiceRefSmallLaby::Item::Exit)
+      item.Type = ItemType::Exit;
+    itemsv.push_back(item);
+  }
+  return itemsv;
 }

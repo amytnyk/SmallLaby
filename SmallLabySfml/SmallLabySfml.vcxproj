@@ -155,6 +155,16 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
+    <Image Include="Images\aze1.bmp" />
+    <Image Include="Images\finish.bmp" />
+    <Image Include="Images\GeneticaMortarlessBlocks.jpg" />
+    <Image Include="Images\gold1.png" />
+    <Image Include="Images\grass.bmp" />
+    <Image Include="Images\m1.bmp" />
+    <Image Include="Images\mud.bmp" />
+    <Image Include="Images\player.bmp" />
+    <Image Include="Images\road.bmp" />
+    <Image Include="Images\tree.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmallLabyUser\SmallLabyUser.csproj">

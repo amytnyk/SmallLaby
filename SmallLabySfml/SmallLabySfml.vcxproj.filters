@@ -26,6 +26,36 @@
     <Image Include="app.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Images\aze1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\finish.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\GeneticaMortarlessBlocks.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\gold1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\grass.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\m1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\mud.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\road.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Images\tree.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallLabyServer", "SmallLabyServer\SmallLabyServer.csproj", "{7F1C821F-8C7E-40E7-AE14-8B46F6AA450B}"
 EndProject
@@ -10,10 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallLabyWpfPlayer", "SmallLabyWpfPlayer\SmallLabyWpfPlayer.csproj", "{DBFEB57F-9C42-4C65-B7A2-7F0C98B2680C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OlivecDx", "OlivecDx\OlivecDx.csproj", "{FF131615-AE7C-49B1-B0A8-6E7726848C00}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallLabyUser", "SmallLabyUser\SmallLabyUser.csproj", "{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SmallLabySfml", "SmallLabySfml\SmallLabySfml.vcxproj", "{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,22 +51,6 @@ Global
 		{FF131615-AE7C-49B1-B0A8-6E7726848C00}.Release|x64.Build.0 = Release|Any CPU
 		{FF131615-AE7C-49B1-B0A8-6E7726848C00}.Release|x86.ActiveCfg = Release|Any CPU
 		{FF131615-AE7C-49B1-B0A8-6E7726848C00}.Release|x86.Build.0 = Release|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Debug|x64.Build.0 = Debug|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Debug|x86.Build.0 = Debug|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Release|x64.ActiveCfg = Release|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Release|x64.Build.0 = Release|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Release|x86.ActiveCfg = Release|Any CPU
-		{C0EF82FB-D6CB-42BE-BBE0-B59AB2F3C383}.Release|x86.Build.0 = Release|Any CPU
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Debug|x64.ActiveCfg = Debug|x64
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Debug|x64.Build.0 = Debug|x64
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Debug|x86.ActiveCfg = Debug|Win32
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Debug|x86.Build.0 = Debug|Win32
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Release|x64.ActiveCfg = Release|x64
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Release|x64.Build.0 = Release|x64
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Release|x86.ActiveCfg = Release|Win32
-		{6E982CD7-3AB2-45C5-B6C5-1C52E9F523EA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
