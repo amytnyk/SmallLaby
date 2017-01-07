@@ -156,6 +156,7 @@
   <ItemGroup>
     <Image Include="app.ico" />
     <Image Include="Images\aze1.bmp" />
+    <Image Include="Images\coins.png" />
     <Image Include="Images\finish.bmp" />
     <Image Include="Images\GeneticaMortarlessBlocks.jpg" />
     <Image Include="Images\gold1.png" />

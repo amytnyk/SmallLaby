@@ -45,6 +45,30 @@ bool IsGoldOnField(int x, int y, const std::vector<Item> &items)
   return false;
 }
 
+void DrawPanel(int gold, double speed)
+{
+  Sprite sprite;
+  Texture texture;
+  texture.loadFromFile("Images/coins.png");
+  sprite.setTexture(texture);
+  auto size = texture.getSize();
+  sprite.setScale(50.0f / size.x, 50.0f / size.y);
+  sprite.setPosition(600, 0);
+  window.draw(sprite);
+  Font font;
+  font.loadFromFile("Raleway-Italic.ttf");
+  Text text;
+  text.setFont(font);
+  text.setString(std::to_string(gold));
+  text.setCharacterSize(50);
+  text.setColor(Color::Red);
+  text.setPosition(700, 0);
+  window.draw(text);
+  text.setString(std::to_string((int)speed));
+  text.setPosition(700, 60);
+  window.draw(text);
+}
+
 void DrawMap(
   const std::vector<std::vector<Terrain>> &map,
   const std::vector<Player> &players, 
@@ -161,7 +185,10 @@ int main(array<System::String ^> ^args)
     auto players = client_model.GetPlayers();
     auto monsters = client_model.GetMonsters();
     auto items = client_model.GetItems();
+    int gold = client_model.Gold(player_id);
+    double speed = client_model.Speed(player_id);
     DrawMap(map, players, monsters, items, player_id);
+    DrawPanel(gold, speed);
     window.display();
   }
   

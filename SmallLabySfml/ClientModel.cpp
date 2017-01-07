@@ -152,3 +152,13 @@ std::vector<Item> ClientModel::GetItems()
   }
   return itemsv;
 }
+
+double ClientModel::Speed(int player_id)
+{
+  return _model_impl->client->GetSpeed(player_id);
+}
+
+int ClientModel::Gold(int player_id)
+{
+  return _model_impl->client->GetGold(player_id);
+}

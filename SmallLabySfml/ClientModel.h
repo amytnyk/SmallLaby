@@ -73,5 +73,7 @@ public:
   std::vector<Player> GetPlayers();
   std::vector<Monster> GetMonsters();
   std::vector<Item> GetItems();
+  double Speed(int player_id);
+  int Gold(int player_id);
 };
 
