@@ -257,6 +257,7 @@ int main(array<System::String ^> ^args)
     }
     window.display();
   }
+  
   if (connected)
   {
     client_model.RemovePlayer(player_id);
